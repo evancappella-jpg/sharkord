@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "60b881f6-58b6-452f-bc97-2431cc2e4b06",
+  "id": "25eec2e5-8c00-41b7-b0b1-883ab476e068",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "activity_log": {
@@ -158,6 +158,258 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "category_role_permissions": {
+      "name": "category_role_permissions",
+      "columns": {
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "role_id": {
+          "name": "role_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "permission": {
+          "name": "permission",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "allow": {
+          "name": "allow",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "category_role_permissions_category_idx": {
+          "name": "category_role_permissions_category_idx",
+          "columns": [
+            "category_id"
+          ],
+          "isUnique": false
+        },
+        "category_role_permissions_role_idx": {
+          "name": "category_role_permissions_role_idx",
+          "columns": [
+            "role_id"
+          ],
+          "isUnique": false
+        },
+        "category_role_permissions_category_perm_idx": {
+          "name": "category_role_permissions_category_perm_idx",
+          "columns": [
+            "category_id",
+            "permission"
+          ],
+          "isUnique": false
+        },
+        "category_role_permissions_role_perm_idx": {
+          "name": "category_role_permissions_role_perm_idx",
+          "columns": [
+            "role_id",
+            "permission"
+          ],
+          "isUnique": false
+        },
+        "category_role_permissions_allow_idx": {
+          "name": "category_role_permissions_allow_idx",
+          "columns": [
+            "allow"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "category_role_permissions_category_id_categories_id_fk": {
+          "name": "category_role_permissions_category_id_categories_id_fk",
+          "tableFrom": "category_role_permissions",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "category_role_permissions_role_id_roles_id_fk": {
+          "name": "category_role_permissions_role_id_roles_id_fk",
+          "tableFrom": "category_role_permissions",
+          "tableTo": "roles",
+          "columnsFrom": [
+            "role_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "category_role_permissions_category_id_role_id_permission_pk": {
+          "columns": [
+            "category_id",
+            "role_id",
+            "permission"
+          ],
+          "name": "category_role_permissions_category_id_role_id_permission_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "category_user_permissions": {
+      "name": "category_user_permissions",
+      "columns": {
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "permission": {
+          "name": "permission",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "allow": {
+          "name": "allow",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "category_user_permissions_category_idx": {
+          "name": "category_user_permissions_category_idx",
+          "columns": [
+            "category_id"
+          ],
+          "isUnique": false
+        },
+        "category_user_permissions_user_idx": {
+          "name": "category_user_permissions_user_idx",
+          "columns": [
+            "user_id"
+          ],
+          "isUnique": false
+        },
+        "category_user_permissions_category_perm_idx": {
+          "name": "category_user_permissions_category_perm_idx",
+          "columns": [
+            "category_id",
+            "permission"
+          ],
+          "isUnique": false
+        },
+        "category_user_permissions_user_perm_idx": {
+          "name": "category_user_permissions_user_perm_idx",
+          "columns": [
+            "user_id",
+            "permission"
+          ],
+          "isUnique": false
+        },
+        "category_user_permissions_allow_idx": {
+          "name": "category_user_permissions_allow_idx",
+          "columns": [
+            "allow"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "category_user_permissions_category_id_categories_id_fk": {
+          "name": "category_user_permissions_category_id_categories_id_fk",
+          "tableFrom": "category_user_permissions",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "category_user_permissions_user_id_users_id_fk": {
+          "name": "category_user_permissions_user_id_users_id_fk",
+          "tableFrom": "category_user_permissions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "category_user_permissions_category_id_user_id_permission_pk": {
+          "columns": [
+            "category_id",
+            "user_id",
+            "permission"
+          ],
+          "name": "category_user_permissions_category_id_user_id_permission_pk"
+        }
+      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     },

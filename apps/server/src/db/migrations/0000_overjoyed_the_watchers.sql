@@ -22,6 +22,40 @@ CREATE TABLE `categories` (
 );
 --> statement-breakpoint
 CREATE INDEX `categories_position_idx` ON `categories` (`position`);--> statement-breakpoint
+CREATE TABLE `category_role_permissions` (
+	`category_id` integer NOT NULL,
+	`role_id` integer NOT NULL,
+	`permission` text NOT NULL,
+	`allow` integer NOT NULL,
+	`created_at` integer NOT NULL,
+	`updated_at` integer,
+	PRIMARY KEY(`category_id`, `role_id`, `permission`),
+	FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE INDEX `category_role_permissions_category_idx` ON `category_role_permissions` (`category_id`);--> statement-breakpoint
+CREATE INDEX `category_role_permissions_role_idx` ON `category_role_permissions` (`role_id`);--> statement-breakpoint
+CREATE INDEX `category_role_permissions_category_perm_idx` ON `category_role_permissions` (`category_id`,`permission`);--> statement-breakpoint
+CREATE INDEX `category_role_permissions_role_perm_idx` ON `category_role_permissions` (`role_id`,`permission`);--> statement-breakpoint
+CREATE INDEX `category_role_permissions_allow_idx` ON `category_role_permissions` (`allow`);--> statement-breakpoint
+CREATE TABLE `category_user_permissions` (
+	`category_id` integer NOT NULL,
+	`user_id` integer NOT NULL,
+	`permission` text NOT NULL,
+	`allow` integer NOT NULL,
+	`created_at` integer NOT NULL,
+	`updated_at` integer,
+	PRIMARY KEY(`category_id`, `user_id`, `permission`),
+	FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE INDEX `category_user_permissions_category_idx` ON `category_user_permissions` (`category_id`);--> statement-breakpoint
+CREATE INDEX `category_user_permissions_user_idx` ON `category_user_permissions` (`user_id`);--> statement-breakpoint
+CREATE INDEX `category_user_permissions_category_perm_idx` ON `category_user_permissions` (`category_id`,`permission`);--> statement-breakpoint
+CREATE INDEX `category_user_permissions_user_perm_idx` ON `category_user_permissions` (`user_id`,`permission`);--> statement-breakpoint
+CREATE INDEX `category_user_permissions_allow_idx` ON `category_user_permissions` (`allow`);--> statement-breakpoint
 CREATE TABLE `channel_read_states` (
 	`user_id` integer NOT NULL,
 	`channel_id` integer NOT NULL,
