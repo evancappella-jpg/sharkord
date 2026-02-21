@@ -429,9 +429,65 @@ const pluginData = sqliteTable('plugin_data', {
     .default({})
 });
 
+const categoryRolePermissions = sqliteTable(
+  'category_role_permissions',
+  {
+    categoryId: integer('category_id')
+      .notNull()
+      .references(() => categories.id, { onDelete: 'cascade' }),
+    roleId: integer('role_id')
+      .notNull()
+      .references(() => roles.id, { onDelete: 'cascade' }),
+    permission: text('permission').notNull(),
+    allow: integer('allow', { mode: 'boolean' }).notNull(),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at')
+  },
+  (t) => [
+    primaryKey({ columns: [t.categoryId, t.roleId, t.permission] }),
+    index('category_role_permissions_category_idx').on(t.categoryId),
+    index('category_role_permissions_role_idx').on(t.roleId),
+    index('category_role_permissions_category_perm_idx').on(
+      t.categoryId,
+      t.permission
+    ),
+    index('category_role_permissions_role_perm_idx').on(t.roleId, t.permission),
+    index('category_role_permissions_allow_idx').on(t.allow)
+  ]
+);
+
+const categoryUserPermissions = sqliteTable(
+  'category_user_permissions',
+  {
+    categoryId: integer('category_id')
+      .notNull()
+      .references(() => categories.id, { onDelete: 'cascade' }),
+    userId: integer('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    permission: text('permission').notNull(),
+    allow: integer('allow', { mode: 'boolean' }).notNull(),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at')
+  },
+  (t) => [
+    primaryKey({ columns: [t.categoryId, t.userId, t.permission] }),
+    index('category_user_permissions_category_idx').on(t.categoryId),
+    index('category_user_permissions_user_idx').on(t.userId),
+    index('category_user_permissions_category_perm_idx').on(
+      t.categoryId,
+      t.permission
+    ),
+    index('category_user_permissions_user_perm_idx').on(t.userId, t.permission),
+    index('category_user_permissions_allow_idx').on(t.allow)
+  ]
+);
+
 export {
   activityLog,
   categories,
+  categoryRolePermissions,
+  categoryUserPermissions,
   channelReadStates,
   channelRolePermissions,
   channels,

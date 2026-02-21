@@ -9,6 +9,10 @@ import {
 import { getCategoryRoute } from './get-category';
 import { reorderCategoriesRoute } from './reorder-categories';
 import { updateCategoryRoute } from './update-category';
+import { deleteCategoryPermissionsRoute } from './delete-permissions';
+import { getCategoryPermissionsRoute } from './get-permissions';
+import { updateCategoryPermissionsRoute } from './update-permission';
+
 
 export const categoriesRouter = t.router({
   add: addCategoryRoute,
@@ -16,7 +20,14 @@ export const categoriesRouter = t.router({
   delete: deleteCategoryRoute,
   get: getCategoryRoute,
   reorder: reorderCategoriesRoute,
+
+  // permissions
+  getPermissions: getCategoryPermissionsRoute,
+  updatePermission: updateCategoryPermissionsRoute,
+  deletePermissions: deleteCategoryPermissionsRoute,
+
   onCreate: onCategoryCreateRoute,
   onDelete: onCategoryDeleteRoute,
   onUpdate: onCategoryUpdateRoute
 });
+
